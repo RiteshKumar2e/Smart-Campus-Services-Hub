@@ -1,0 +1,324 @@
+/* ================================================================
+   LOST & FOUND PAGE CSS
+   ================================================================ */
+
+.lf-tab-switcher {
+    display: flex;
+    gap: 4px;
+    background: var(--gray-100);
+    padding: 4px;
+    border-radius: var(--radius-xl);
+    width: fit-content;
+    margin-bottom: 28px;
+}
+
+.lf-tab {
+    padding: 10px 28px;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.lf-tab.active {
+    background: white;
+    color: var(--gray-900);
+    box-shadow: var(--shadow-sm);
+}
+
+.lf-tab.lost.active {
+    color: var(--danger);
+}
+
+.lf-tab.found.active {
+    color: var(--success);
+}
+
+.lf-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+.lf-item-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-100);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    animation: fadeInUp 0.4s ease both;
+}
+
+.lf-item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.lf-item-card.lost {
+    border-top: 3px solid var(--danger);
+}
+
+.lf-item-card.found {
+    border-top: 3px solid var(--success);
+}
+
+.lf-item-card.claimed {
+    opacity: 0.75;
+}
+
+.lf-item-image {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    background: var(--gray-50);
+    position: relative;
+}
+
+.lf-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lf-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.type-lost {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.type-found {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.lf-item-body {
+    padding: 16px;
+}
+
+.lf-item-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+}
+
+.lf-item-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.lf-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-100);
+    font-size: 12px;
+    color: var(--gray-500);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lf-contact-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+    background: var(--primary-ultra-light);
+    color: var(--primary);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-weight: 600;
+}
+
+.lf-contact-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.lf-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.match-alert {
+    background: linear-gradient(135deg, #dcfce7, #d1fae5);
+    border: 1px solid #86efac;
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lf-form-panel {
+    background: white;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-100);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: calc(var(--navbar-height) + 32px);
+    overflow: hidden;
+}
+
+.lf-form-header {
+    padding: 20px 24px;
+}
+
+.lf-form-header.lost-header {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.lf-form-header.found-header {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.lf-form-header h3 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+}
+
+.lf-form-header p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.lf-form-body {
+    padding: 24px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.category-btn {
+    padding: 10px 4px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--gray-200);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 11px;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.category-btn .cat-emoji {
+    font-size: 18px;
+}
+
+.category-btn:hover,
+.category-btn.selected {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-ultra-light);
+}
+
+.lf-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.lf-stat {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--gray-100);
+    box-shadow: var(--shadow-sm);
+}
+
+.lf-stat-val {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.lf-stat-label {
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+.type-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.type-option {
+    padding: 10px 8px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--gray-200);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.type-option .type-emoji {
+    font-size: 20px;
+}
+
+.type-option.selected {
+    border-color: var(--primary);
+    background: var(--primary-ultra-light);
+    color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+    .lf-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .lf-form-panel {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .lf-items-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
