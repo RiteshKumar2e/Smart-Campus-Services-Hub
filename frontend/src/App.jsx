@@ -12,6 +12,7 @@ import Events from './pages/Events'
 import CampusMap from './pages/CampusMap'
 import Transport from './pages/Transport'
 import Navbar from './components/Navbar'
+import GlobalTools from './components/GlobalTools'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/map" element={<><Navbar /><CampusMap /></>} />
         <Route path="/transport" element={<><Navbar /><Transport /></>} />
       </Routes>
+      <GlobalTools />
     </BrowserRouter>
   )
 }

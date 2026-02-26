@@ -29,7 +29,7 @@ export default function Navbar() {
         <>
             <nav className="navbar">
                 <div className="navbar-inner">
-                    <Link to="/" className="navbar-brand">
+                    <Link to="/dashboard" className="navbar-brand">
                         <div className="navbar-brand-icon">🎓</div>
                         <span className="navbar-brand-text">Smart<span>Campus</span></span>
                     </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
             )}
             <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                    <Link to="/" className="navbar-brand" onClick={() => setMobileOpen(false)}>
+                    <Link to="/dashboard" className="navbar-brand" onClick={() => setMobileOpen(false)}>
                         <div className="navbar-brand-icon" style={{ width: 32, height: 32, fontSize: 16 }}>🎓</div>
                         <span className="navbar-brand-text">Smart<span>Campus</span></span>
                     </Link>

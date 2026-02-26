@@ -7,7 +7,10 @@ const API = 'http://localhost:5000/api'
 
 const MENU_EMOJIS = {
     dosa: '🥞', biryani: '🍛', burger: '🍔', tikka: '🍖',
-    coffee: '☕', samosa: '🫓', rajma: '🍲', thali: '🍱'
+    coffee: '☕', samosa: '🫓', rajma: '🍲', thali: '🍱',
+    maggi: '🍜', paratha: '🫓', rice: '🍚', noodles: '🍜',
+    tea: '☕', egg: '🍳', chole: '🥘', vadapav: '🍔',
+    poha: '🥣', paneer: '🥘', naan: '🫓', juice: '🥤'
 }
 
 const CATEGORY_BG = {
@@ -24,6 +27,7 @@ export default function Canteen() {
     const [menu, setMenu] = useState([])
     const [filtered, setFiltered] = useState([])
     const [category, setCategory] = useState('All')
+    const [selectedCanteen, setSelectedCanteen] = useState('All')
     const [cart, setCart] = useState([])
     const [kitchenStatus, setKitchenStatus] = useState({ isOpen: true, avgWaitTime: 12, activeOrders: 5, currentLoad: 'medium', announcement: '' })
     const [orderConfirm, setOrderConfirm] = useState(null)
@@ -52,11 +56,19 @@ export default function Canteen() {
         return () => clearInterval(interval)
     }, [])
 
+    const canteens = ['All', 'Bhaiya Canteen', 'Nescafe', 'All is Well']
     const categories = ['All', ...new Set(menu.map(i => i.category))]
 
-    const filterMenu = (cat) => {
-        setCategory(cat)
-        setFiltered(cat === 'All' ? menu : menu.filter(i => i.category === cat))
+    const filterMenu = (cat, can) => {
+        const c = cat || category
+        const n = can || selectedCanteen
+        setCategory(c)
+        setSelectedCanteen(n)
+
+        let temp = [...menu]
+        if (c !== 'All') temp = temp.filter(i => i.category === c)
+        if (n !== 'All') temp = temp.filter(i => i.canteen === n)
+        setFiltered(temp)
     }
 
     const addToCart = (item) => {
@@ -144,8 +156,19 @@ export default function Canteen() {
                             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700 }}>Today's Menu</h2>
                             <div className="category-tabs">
                                 {categories.map(cat => (
-                                    <button key={cat} className={`cat-tab ${category === cat ? 'active' : ''}`} onClick={() => filterMenu(cat)}>
+                                    <button key={cat} className={`cat-tab ${category === cat ? 'active' : ''}`} onClick={() => filterMenu(cat, null)}>
                                         {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="menu-header" style={{ marginTop: '20px' }}>
+                            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700 }}>Choose Canteen</h2>
+                            <div className="category-tabs">
+                                {canteens.map(can => (
+                                    <button key={can} className={`cat-tab ${selectedCanteen === can ? 'active' : ''}`} style={{ borderColor: 'var(--accent)' }} onClick={() => filterMenu(null, can)}>
+                                        {can}
                                     </button>
                                 ))}
                             </div>
@@ -174,7 +197,7 @@ export default function Canteen() {
                                             </div>
                                             <div className="menu-item-body">
                                                 <div className="menu-item-name">{item.name}</div>
-                                                <div className="menu-item-cat">{item.category}</div>
+                                                <div className="menu-item-cat">{item.category} • <span style={{ color: 'var(--accent-dark)', fontWeight: 600 }}>{item.canteen}</span></div>
                                                 <div className="menu-item-meta">
                                                     <div className="menu-item-price">₹{item.price}</div>
                                                     <div className="menu-item-rating">⭐ {item.rating}</div>

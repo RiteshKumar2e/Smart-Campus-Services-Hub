@@ -36,14 +36,26 @@ const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 // ======================== IN-MEMORY DATA STORES ========================
 
 let canteenMenu = [
-  { id: '1', name: 'Masala Dosa', category: 'South Indian', price: 60, prepTime: 10, available: true, rating: 4.5, calories: 320, image: 'dosa' },
-  { id: '2', name: 'Chicken Biryani', category: 'Main Course', price: 120, prepTime: 20, available: true, rating: 4.8, calories: 650, image: 'biryani' },
-  { id: '3', name: 'Veg Burger', category: 'Fast Food', price: 80, prepTime: 8, available: true, rating: 4.2, calories: 450, image: 'burger' },
-  { id: '4', name: 'Paneer Tikka', category: 'Starters', price: 100, prepTime: 15, available: true, rating: 4.6, calories: 380, image: 'tikka' },
-  { id: '5', name: 'Cold Coffee', category: 'Beverages', price: 50, prepTime: 5, available: true, rating: 4.3, calories: 180, image: 'coffee' },
-  { id: '6', name: 'Samosa (2pcs)', category: 'Snacks', price: 30, prepTime: 3, available: true, rating: 4.1, calories: 220, image: 'samosa' },
-  { id: '7', name: 'Rajma Chawal', category: 'Main Course', price: 90, prepTime: 12, available: false, rating: 4.4, calories: 520, image: 'rajma' },
-  { id: '8', name: 'Veg Thali', category: 'Thali', price: 110, prepTime: 15, available: true, rating: 4.7, calories: 800, image: 'thali' },
+  // Bhaiya Canteen (Main Course & Thalis)
+  { id: '1', name: 'Paneer Butter Masala', category: 'Main Course', canteen: 'Bhaiya Canteen', price: 110, prepTime: 20, available: true, rating: 4.8, calories: 550, image: 'paneer' },
+  { id: '2', name: 'Veg Thali Special', category: 'Thali', canteen: 'Bhaiya Canteen', price: 80, prepTime: 15, available: true, rating: 4.7, calories: 800, image: 'thali' },
+  { id: '3', name: 'Masala Dosa', category: 'South Indian', canteen: 'Bhaiya Canteen', price: 50, prepTime: 12, available: true, rating: 4.5, calories: 320, image: 'dosa' },
+  { id: '4', name: 'Rajma Chawal', category: 'Main Course', canteen: 'Bhaiya Canteen', price: 60, prepTime: 12, available: true, rating: 4.4, calories: 520, image: 'rajma' },
+  { id: '5', name: 'Chole Bhature', category: 'Main Course', canteen: 'Bhaiya Canteen', price: 75, prepTime: 18, available: true, rating: 4.7, calories: 700, image: 'chole' },
+
+  // Nescafe (Beverages & Snacks)
+  { id: '6', name: 'Cold Coffee with Ice Cream', category: 'Beverages', canteen: 'Nescafe', price: 60, prepTime: 5, available: true, rating: 4.9, calories: 320, image: 'coffee' },
+  { id: '7', name: 'Masala Chai', category: 'Beverages', canteen: 'Nescafe', price: 15, prepTime: 5, available: true, rating: 4.8, calories: 60, image: 'tea' },
+  { id: '8', name: 'Cheese Chilly Maggi', category: 'Fast Food', canteen: 'Nescafe', price: 45, prepTime: 10, available: true, rating: 4.9, calories: 320, image: 'maggi' },
+  { id: '9', name: 'Veg Grilled Sandwich', category: 'Fast Food', canteen: 'Nescafe', price: 55, prepTime: 8, available: true, rating: 4.4, calories: 280, image: 'burger' },
+  { id: '10', name: 'Iced Tea', category: 'Beverages', canteen: 'Nescafe', price: 30, prepTime: 3, available: true, rating: 4.5, calories: 90, image: 'juice' },
+
+  // All is Well (Fast Food & Street Food)
+  { id: '11', name: 'Vada Pav (2pcs)', category: 'Snacks', canteen: 'All is Well', price: 30, prepTime: 5, available: true, rating: 4.6, calories: 340, image: 'vadapav' },
+  { id: '12', name: 'Veg Hakka Noodles', category: 'Fast Food', canteen: 'All is Well', price: 65, prepTime: 12, available: true, rating: 4.3, calories: 420, image: 'noodles' },
+  { id: '13', name: 'Aloo Paratha with Curd', category: 'Main Course', canteen: 'All is Well', price: 45, prepTime: 15, available: true, rating: 4.6, calories: 350, image: 'paratha' },
+  { id: '14', name: 'Poha Special', category: 'Snacks', canteen: 'All is Well', price: 25, prepTime: 5, available: true, rating: 4.4, calories: 180, image: 'poha' },
+  { id: '15', name: 'Samosa Chat', category: 'Snacks', canteen: 'All is Well', price: 40, prepTime: 5, available: true, rating: 4.6, calories: 310, image: 'samosa' },
 ];
 
 let canteenOrders = [];
@@ -53,8 +65,8 @@ let kitchenStatus = {
   currentLoad: 'medium',
   avgWaitTime: 12,
   activeOrders: 5,
-  staff: 4,
-  announcement: 'Special: 20% off on all thalis today!'
+  staff: 12,
+  announcement: 'Fresh Veg meals served across 3 locations!'
 };
 
 let maintenanceIssues = [

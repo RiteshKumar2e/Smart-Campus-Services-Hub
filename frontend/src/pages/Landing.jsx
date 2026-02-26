@@ -160,21 +160,6 @@ const SUPPORT_LINKS = [
 export default function Landing() {
     const [modalData, setModalData] = useState(null);
     const [formData, setFormData] = useState({});
-    const [showScrollTop, setShowScrollTop] = useState(false);
-    const [showChatbot, setShowChatbot] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setShowScrollTop(window.scrollY > 400);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
     const closeModal = () => {
         setModalData(null);
         setFormData({});
@@ -559,28 +544,6 @@ export default function Landing() {
                 </div>
             </footer>
 
-            {/* Floating Elements */}
-            <div className="floating-controls">
-                <button
-                    className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
-                    onClick={scrollToTop}
-                    title="Scroll to Top"
-                >
-                    <ArrowUp size={24} />
-                </button>
-
-                {!showChatbot && (
-                    <div className="chatbot-launcher" onClick={() => setShowChatbot(true)}>
-                        <div className="chatbot-ai-ring" />
-                        <div className="chatbot-ai-icon">
-                            <Bot size={28} />
-                        </div>
-                        <span className="chatbot-badge">Hi!</span>
-                    </div>
-                )}
-            </div>
-
-            {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
         </div>
     )
 }
