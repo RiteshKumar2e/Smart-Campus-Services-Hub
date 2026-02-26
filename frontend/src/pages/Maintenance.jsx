@@ -34,7 +34,7 @@ export default function Maintenance() {
     const [submitting, setSubmitting] = useState(false)
     const [gpsLocation, setGpsLocation] = useState(null)
     const [photoPreview, setPhotoPreview] = useState(null)
-    const [form, setForm] = useState({ type: '', title: '', location: '', description: '', priority: 'medium', reportedBy: 'Anmol Kumar' })
+    const [form, setForm] = useState({ type: '', title: '', location: '', description: '', priority: 'medium', reportedBy: 'Ritesh Kumar' })
     const fileRef = useRef()
 
     useEffect(() => {
@@ -85,7 +85,7 @@ export default function Maintenance() {
             const newIssue = res.data.data
             setIssues(prev => [newIssue, ...prev])
             setFiltered(prev => [newIssue, ...prev])
-            setForm({ type: '', title: '', location: '', description: '', priority: 'medium', reportedBy: 'Anmol Kumar' })
+            setForm({ type: '', title: '', location: '', description: '', priority: 'medium', reportedBy: 'Ritesh Kumar' })
             setGpsLocation(null)
             setPhotoPreview(null)
             toast.success('Issue reported successfully! 🎉')

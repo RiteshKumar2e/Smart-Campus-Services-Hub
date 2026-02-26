@@ -21,6 +21,7 @@ const CATEGORY_BG = {
     'Beverages': 'linear-gradient(135deg, #e0f2fe, #bae6fd)',
     'Snacks': 'linear-gradient(135deg, #ede9fe, #ddd6fe)',
     'Thali': 'linear-gradient(135deg, #f0fdf4, #dcfce7)',
+    'Desserts': 'linear-gradient(135deg, #fff1f2, #ffe4e6)',
 }
 
 export default function Canteen() {
@@ -56,18 +57,20 @@ export default function Canteen() {
         return () => clearInterval(interval)
     }, [])
 
-    const canteens = ['All', 'Bhaiya Canteen', 'Nescafe', 'All is Well']
+    const canteens = ['All', 'Fun Food', 'Nescafe', 'All is Well']
     const categories = ['All', ...new Set(menu.map(i => i.category))]
 
-    const filterMenu = (cat, can) => {
-        const c = cat || category
-        const n = can || selectedCanteen
+    const filterMenu = (newCat, newCan) => {
+        // If switching canteen, reset category to All to avoid empty results
+        const c = newCan !== null ? 'All' : (newCat || category)
+        const n = newCan || selectedCanteen
+
         setCategory(c)
         setSelectedCanteen(n)
 
         let temp = [...menu]
         if (c !== 'All') temp = temp.filter(i => i.category === c)
-        if (n !== 'All') temp = temp.filter(i => i.canteen === n)
+        if (n !== 'All') temp = temp.filter(i => i.canteen === n || (i.canteen === 'Bhaiya Canteen' && n === 'Fun Food'))
         setFiltered(temp)
     }
 
@@ -100,7 +103,7 @@ export default function Canteen() {
         try {
             const items = cart.map(c => ({ menuItemId: c.id, quantity: c.qty, name: c.name }))
             const res = await axios.post(`${API}/canteen/orders`, {
-                items, studentName: 'Anmol Kumar', studentId: 'CS21B001', paymentMethod: 'campus-wallet'
+                items, studentName: 'Ritesh Kumar', studentId: 'CS21B001', paymentMethod: 'campus-wallet'
             })
             setOrderConfirm(res.data.data)
             setCart([])
@@ -182,49 +185,57 @@ export default function Canteen() {
                             </div>
                         ) : (
                             <div className="menu-grid">
-                                {filtered.map((item, idx) => {
-                                    const qty = getCartQty(item.id)
-                                    return (
-                                        <div className={`menu-item-card animate-fade-in-up ${!item.available ? 'unavailable' : ''}`}
-                                            key={item.id} style={{ animationDelay: `${idx * 0.05}s` }}>
-                                            <div className="menu-item-image" style={{ background: CATEGORY_BG[item.category] || 'var(--gray-50)' }}>
-                                                <span>{MENU_EMOJIS[item.image] || '🍴'}</span>
-                                                {!item.available && (
-                                                    <div className="menu-item-badge">
-                                                        <span className="badge badge-gray">Unavailable</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="menu-item-body">
-                                                <div className="menu-item-name">{item.name}</div>
-                                                <div className="menu-item-cat">{item.category} • <span style={{ color: 'var(--accent-dark)', fontWeight: 600 }}>{item.canteen}</span></div>
-                                                <div className="menu-item-meta">
-                                                    <div className="menu-item-price">₹{item.price}</div>
-                                                    <div className="menu-item-rating">⭐ {item.rating}</div>
-                                                </div>
-                                                <div className="menu-item-info">
-                                                    <span>⏱️ {item.prepTime}m</span>
-                                                    <span>🔥 {item.calories} cal</span>
-                                                </div>
-                                                {item.available ? (
-                                                    qty === 0 ? (
-                                                        <button className="btn btn-primary menu-item-add" onClick={() => addToCart(item)}>
-                                                            + Add to Cart
-                                                        </button>
-                                                    ) : (
-                                                        <div className="qty-control">
-                                                            <button className="qty-btn" onClick={() => updateQty(item.id, -1)}>−</button>
-                                                            <span className="qty-value">{qty}</span>
-                                                            <button className="qty-btn" onClick={() => updateQty(item.id, 1)}>+</button>
+                                {filtered.length > 0 ? (
+                                    filtered.map((item, idx) => {
+                                        const qty = getCartQty(item.id)
+                                        return (
+                                            <div className={`menu-item-card animate-fade-in-up ${!item.available ? 'unavailable' : ''}`}
+                                                key={item.id} style={{ animationDelay: `${idx * 0.05}s` }}>
+                                                <div className="menu-item-image" style={{ background: CATEGORY_BG[item.category] || 'var(--gray-50)' }}>
+                                                    <span>{MENU_EMOJIS[item.image] || '🍴'}</span>
+                                                    {!item.available && (
+                                                        <div className="menu-item-badge">
+                                                            <span className="badge badge-gray">Unavailable</span>
                                                         </div>
-                                                    )
-                                                ) : (
-                                                    <button className="btn btn-ghost menu-item-add" disabled>Not Available</button>
-                                                )}
+                                                    )}
+                                                </div>
+                                                <div className="menu-item-body">
+                                                    <div className="menu-item-name">{item.name}</div>
+                                                    <div className="menu-item-cat">{item.category} • <span style={{ color: 'var(--accent-dark)', fontWeight: 600 }}>{item.canteen}</span></div>
+                                                    <div className="menu-item-meta">
+                                                        <div className="menu-item-price">₹{item.price}</div>
+                                                        <div className="menu-item-rating">⭐ {item.rating}</div>
+                                                    </div>
+                                                    <div className="menu-item-info">
+                                                        <span>⏱️ {item.prepTime}m</span>
+                                                        <span>🔥 {item.calories} cal</span>
+                                                    </div>
+                                                    {item.available ? (
+                                                        qty === 0 ? (
+                                                            <button className="btn btn-primary menu-item-add" onClick={() => addToCart(item)}>
+                                                                + Add to Cart
+                                                            </button>
+                                                        ) : (
+                                                            <div className="qty-control">
+                                                                <button className="qty-btn" onClick={() => updateQty(item.id, -1)}>−</button>
+                                                                <span className="qty-value">{qty}</span>
+                                                                <button className="qty-btn" onClick={() => updateQty(item.id, 1)}>+</button>
+                                                            </div>
+                                                        )
+                                                    ) : (
+                                                        <button className="btn btn-ghost menu-item-add" disabled>Not Available</button>
+                                                    )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
+                                        )
+                                    })
+                                ) : (
+                                    <div className="no-items-found" style={{ gridColumn: '1/-1', textAlign: 'center', padding: '40px' }}>
+                                        <div style={{ fontSize: 40 }}>🥣</div>
+                                        <h3>No items found</h3>
+                                        <p>Try changing the category or canteen filter.</p>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>

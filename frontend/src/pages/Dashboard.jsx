@@ -71,7 +71,7 @@ export default function Dashboard() {
                 {/* Header */}
                 <div className="page-header animate-fade-in-up" style={{ marginBottom: 28 }}>
                     <p className="dashboard-greeting">{greeting} 👋</p>
-                    <h1 className="dashboard-greeting-name">Welcome back, <span>Anmol</span>!</h1>
+                    <h1 className="dashboard-greeting-name">Welcome back, <span>Ritesh Kumar</span>!</h1>
                     <p className="dashboard-date">📅 {dateStr}</p>
                     <div style={{ marginTop: 16, padding: '10px 16px', background: 'var(--primary-ultra-light)', borderRadius: 'var(--radius-md)', display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--primary)', fontWeight: 600 }}>
                         🎓 Smart Campus Services Hub • Your all-in-one campus platform

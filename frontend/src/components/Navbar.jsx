@@ -67,15 +67,15 @@ export default function Navbar() {
 
                         <div className="navbar-user-container">
                             <div className="navbar-user-btn" onClick={() => setUserMenuOpen(!userMenuOpen)}>
-                                <div className="navbar-avatar">AK</div>
-                                <span className="navbar-user-name">Anmol K.</span>
+                                <div className="navbar-avatar">RK</div>
+                                <span className="navbar-user-name">Ritesh K.</span>
                                 <span style={{ fontSize: '10px', marginLeft: '4px' }}>▼</span>
                             </div>
 
                             {userMenuOpen && (
                                 <div className="navbar-dropdown">
                                     <div className="dropdown-header">
-                                        <strong>Anmol Kumar</strong>
+                                        <strong>Ritesh Kumar</strong>
                                         <span>CS21B10</span>
                                     </div>
                                     <Link to="/dashboard" className="dropdown-item">👤 Profile</Link>

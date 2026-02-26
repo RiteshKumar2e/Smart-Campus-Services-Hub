@@ -17,11 +17,11 @@ export default function AdminLogin() {
         // Simulate Admin API call
         setTimeout(() => {
             setLoading(false)
-            if (email === 'admin@smartcampus.edu' && password === 'admin123') {
+            if (email === 'riteshkumar90359@gmail.com' && password === 'admin123') {
                 toast.success('Admin Authentication Successful!')
                 setTimeout(() => navigate('/dashboard'), 1000)
             } else {
-                toast.error('Invalid Credentials: Login with admin@smartcampus.edu / admin123')
+                toast.error('Invalid Credentials: Login with riteshkumar90359@gmail.com / admin123')
             }
         }, 1500)
     }

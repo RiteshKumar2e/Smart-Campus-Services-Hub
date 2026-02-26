@@ -33,7 +33,7 @@ export default function LostAndFound() {
     const [submitting, setSubmitting] = useState(false)
     const [photoPreview, setPhotoPreview] = useState(null)
     const [potentialMatches, setPotentialMatches] = useState([])
-    const [form, setForm] = useState({ title: '', description: '', location: '', reportedBy: 'Anmol Kumar', contact: 'anmol@campus.edu', category: '' })
+    const [form, setForm] = useState({ title: '', description: '', location: '', reportedBy: 'Ritesh Kumar', contact: 'riteshkumar90359@gmail.com', category: '' })
     const fileRef = useRef()
 
     useEffect(() => {
@@ -78,7 +78,7 @@ export default function LostAndFound() {
             } else {
                 toast.success(`${formType === 'lost' ? '🔍 Lost item reported!' : '✅ Found item reported! We\'ll notify the owner.'}`)
             }
-            setForm({ title: '', description: '', location: '', reportedBy: 'Anmol Kumar', contact: 'anmol@campus.edu', category: '' })
+            setForm({ title: '', description: '', location: '', reportedBy: 'Ritesh Kumar', contact: 'riteshkumar90359@gmail.com', category: '' })
             setPhotoPreview(null)
         } catch { toast.error('Failed to submit. Try again.') }
         finally { setSubmitting(false) }

@@ -49,7 +49,7 @@ export default function Register() {
                             <input
                                 type="text"
                                 className="auth-input"
-                                placeholder="Anmol Kumar"
+                                placeholder="Ritesh Kumar"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 required
