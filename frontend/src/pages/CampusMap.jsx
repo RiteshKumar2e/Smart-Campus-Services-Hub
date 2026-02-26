@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker, Polyline, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, CircleMarker, Polyline, useMap, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import axios from 'axios'
 import toast from 'react-hot-toast'
@@ -44,13 +44,26 @@ const youAreHereIcon = L.divIcon({
     className: ''
 })
 
-const CAMPUS_CENTER = [28.6139, 77.2090]
+const CAMPUS_CENTER = [22.8119, 86.0199]
 
-function FlyToMarker({ position }) {
+const universityIcon = L.divIcon({
+    className: 'google-marker',
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12],
+    html: '<div></div>'
+})
+
+function FlyToMarker({ position, zoom = 18 }) {
     const map = useMap()
     useEffect(() => {
-        if (position) map.flyTo(position, 18, { duration: 1.2 })
-    }, [position, map])
+        if (position) {
+            map.flyTo(position, zoom, {
+                duration: 1.5,
+                easeLinearity: 0.25
+            })
+        }
+    }, [position, map, zoom])
     return null
 }
 
@@ -70,6 +83,9 @@ export default function CampusMap() {
             try {
                 const res = await axios.get(`${API}/map/buildings`)
                 setBuildings(res.data.data)
+                if (res.data.data.length > 0) {
+                    setSelected(res.data.data[0])
+                }
             } catch { } finally { setLoading(false) }
         }
         fetchBuildings()
@@ -83,7 +99,7 @@ export default function CampusMap() {
 
     const selectBuilding = (building) => {
         setSelected(building)
-        setFlyTo([building.lat, building.lng])
+        setFlyTo({ position: [building.lat, building.lng], zoom: 18 })
     }
 
     const getDirections = (building) => {
@@ -95,7 +111,7 @@ export default function CampusMap() {
             `Arrive at ${building.name} (${building.floors} floors)`,
         ]
         setRoute({ steps, distance: `~${(Math.random() * 0.4 + 0.1).toFixed(1)} km`, time: `~${Math.floor(Math.random() * 8 + 2)} min` })
-        setFlyTo([building.lat, building.lng])
+        setFlyTo({ position: [building.lat, building.lng], zoom: 18 })
         toast.success(`📍 Route to ${building.name} ready!`)
     }
 
@@ -108,8 +124,8 @@ export default function CampusMap() {
                     <div className="flex items-center gap-3 mb-4">
                         <span style={{ fontSize: 40 }}>🗺️</span>
                         <div>
-                            <h1 className="section-title">Interactive Campus Map</h1>
-                            <p className="section-subtitle" style={{ marginBottom: 0 }}>You-are-here • Smart pathfinding • Real-time building info</p>
+                            <h1 className="section-title">Arka Jain University Map</h1>
+                            <p className="section-subtitle" style={{ marginBottom: 0 }}>Smart pathfinding for Gamharia Campus • Real-time info</p>
                         </div>
                     </div>
                 </div>
@@ -156,22 +172,40 @@ export default function CampusMap() {
 
                         {/* Selected Building Detail */}
                         {selected && (
-                            <div className="building-detail-panel animate-scale-in">
-                                <div className="building-detail-header">
-                                    <div style={{ fontSize: 28, marginBottom: 6 }}>{selected.type === 'food' ? '🍽️' : selected.type === 'library' ? '📚' : selected.type === 'hostel' ? '🏠' : selected.type === 'sports' ? '⚽' : '🏛️'}</div>
-                                    <div className="building-detail-name">{selected.name}</div>
-                                    <div style={{ fontSize: 13, opacity: 0.85, marginTop: 4 }}>{selected.floors} Floors</div>
+                            <div className="building-detail-panel google-style-card animate-scale-in">
+                                <div className="card-media">
+                                    <img src={selected.image || 'https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=800&q=80'} alt={selected.name} />
+                                    <button className="close-card-btn" onClick={() => setSelected(null)}>✕</button>
                                 </div>
-                                <div className="building-detail-body">
-                                    <p style={{ fontSize: 14, color: 'var(--gray-600)', marginBottom: 16 }}>{selected.description}</p>
-                                    <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--gray-700)', marginBottom: 8 }}>Facilities:</div>
-                                    <div className="facility-list">
-                                        {selected.facilities?.map(f => <div className="facility-item" key={f}>{f}</div>)}
+                                <div className="card-content">
+                                    <div className="card-header-row">
+                                        <h2 className="card-title-main">{selected.name}</h2>
+                                        <div className="card-actions-mini">
+                                            <div className="action-circle-btn" onClick={() => getDirections(selected)}><span style={{ fontSize: 18 }}>🧭</span></div>
+                                            <div className="action-circle-btn"><span style={{ fontSize: 18 }}>🔖</span></div>
+                                        </div>
                                     </div>
-                                    <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }}
-                                        onClick={() => getDirections(selected)}>
-                                        🧭 Get Directions
-                                    </button>
+                                    <div className="card-rating-row">
+                                        <span className="rating-val">3.9</span>
+                                        <span className="rating-stars">★★★★☆</span>
+                                        <span className="rating-count">(1,003)</span>
+                                    </div>
+                                    <div className="card-meta-row">
+                                        <span className="meta-type">{selected.type === 'food' ? 'Restaurant' : 'Educational institution'}</span>
+                                        <span className="meta-sep">·</span>
+                                        <span className="meta-status">Open · Closes 7 pm</span>
+                                    </div>
+                                    <div className="card-description-row">
+                                        <p>{selected.description}</p>
+                                    </div>
+                                    <div className="card-footer-btns">
+                                        <button className="btn-gm-directions" onClick={() => getDirections(selected)}>
+                                            <span style={{ marginRight: 6 }}>🧭</span> Directions
+                                        </button>
+                                        <button className="btn-gm-share">
+                                            <span style={{ marginRight: 6 }}>📤</span> Share
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -200,19 +234,38 @@ export default function CampusMap() {
                     </div>
 
                     {/* Map */}
-                    <div className="map-container animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+                    <div className="map-container animate-fade-in-up" style={{ animationDelay: '0.15s', position: 'relative' }}>
+                        {/* Mock Search this area button */}
+                        <div className="search-area-overlay">
+                            <button className="btn-search-area">
+                                <span style={{ marginRight: 6 }}>🔍</span> Search this area
+                            </button>
+                        </div>
+
+                        <div className="map-overlay-controls">
+                            <button className="map-overlay-btn" title="Detailed Campus View"
+                                onClick={() => setFlyTo({ position: [22.843, 86.102], zoom: 17 })}>
+                                🏢
+                            </button>
+                            <button className="map-overlay-btn" title="City Overview"
+                                onClick={() => setFlyTo({ position: [22.795, 86.150], zoom: 12 })}>
+                                🌆
+                            </button>
+                            <button className="map-overlay-btn" onClick={() => navigateDetail(CAMPUS_CENTER)}>📍</button>
+                        </div>
+
                         <MapContainer
-                            center={CAMPUS_CENTER}
-                            zoom={16}
+                            center={[22.795, 86.150]}
+                            zoom={12}
                             className="leaflet-map"
                             zoomControl={true}
                         >
                             <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                             />
 
-                            {flyTo && <FlyToMarker position={flyTo} />}
+                            {flyTo && <FlyToMarker position={flyTo.position} zoom={flyTo.zoom} />}
 
                             {/* User location */}
                             <CircleMarker
@@ -241,9 +294,12 @@ export default function CampusMap() {
                                 <Marker
                                     key={b.id}
                                     position={[b.lat, b.lng]}
-                                    icon={createCustomIcon(TYPE_DOTS[b.type] || '#94a3b8')}
+                                    icon={universityIcon}
                                     eventHandlers={{ click: () => selectBuilding(b) }}
                                 >
+                                    <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent={false}>
+                                        <div className="premium-tooltip">{b.name.split(' ')[2] || b.name}</div>
+                                    </Tooltip>
                                     <Popup>
                                         <div className="custom-popup" style={{ minWidth: 180 }}>
                                             <h3>{b.name}</h3>

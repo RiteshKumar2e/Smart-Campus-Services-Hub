@@ -141,28 +141,14 @@ let kitchenStatus = {
   avgWaitTime: 12,
   activeOrders: 5,
   staff: 15,
-  announcement: 'Fun Food, Nescafe, and All is Well are now serving fresh Veg meals!'
+  announcement: ''
 };
 
-let maintenanceIssues = [
-  { id: '1', type: 'Electricity', title: 'Flickering lights in Lab 204', location: 'Engineering Block B', status: 'in-progress', priority: 'high', reportedBy: 'Ravi Kumar', createdAt: new Date(Date.now() - 86400000).toISOString(), lat: 28.6139, lng: 77.2090, updates: ['Electrician dispatched', 'Parts ordered'] },
-  { id: '2', type: 'Plumbing', title: 'Water leakage near Canteen', location: 'Main Block Ground Floor', status: 'pending', priority: 'medium', reportedBy: 'Priya Singh', createdAt: new Date(Date.now() - 43200000).toISOString(), lat: 28.6135, lng: 77.2095, updates: [] },
-  { id: '3', type: 'Cleanliness', title: 'Garbage overflow at Gate 3', location: 'Main Gate', status: 'resolved', priority: 'low', reportedBy: 'Amit Sharma', createdAt: new Date(Date.now() - 172800000).toISOString(), lat: 28.6142, lng: 77.2085, updates: ['Cleaned by housekeeping team'] },
-];
+let maintenanceIssues = [];
 
-let lostFoundItems = [
-  { id: '1', type: 'lost', title: 'Blue Backpack', description: 'Nike blue backpack with laptop inside', location: 'Library', reportedBy: 'Sneha Patel', contact: 'sneha@campus.edu', createdAt: new Date(Date.now() - 7200000).toISOString(), status: 'active', category: 'Bags', image: null },
-  { id: '2', type: 'found', title: 'Water Bottle', description: 'Steel water bottle found near gym', location: 'Gymnasium', reportedBy: 'Karan Mehta', contact: 'karan@campus.edu', createdAt: new Date(Date.now() - 3600000).toISOString(), status: 'active', category: 'Personal Items', image: null },
-  { id: '3', type: 'lost', title: 'ID Card', description: 'Student ID card - Rohit Verma', location: 'Cafeteria', reportedBy: 'Rohit Verma', contact: 'rohit@campus.edu', createdAt: new Date(Date.now() - 86400000).toISOString(), status: 'claimed', category: 'Documents', image: null },
-];
+let lostFoundItems = [];
 
-let events = [
-  { id: '1', title: 'Tech Symposium 2026', department: 'Computer Science', type: 'workshop', date: '2026-03-05', time: '10:00 AM', venue: 'Auditorium', description: 'Annual technical symposium with industry experts', registrations: 234, maxCapacity: 300, image: null, tags: ['AI', 'ML', 'Robotics'], organizer: 'CS Department' },
-  { id: '2', title: 'Cultural Fest - Utsav', department: 'Cultural Committee', type: 'fest', date: '2026-03-10', time: '5:00 PM', venue: 'Open Amphitheater', description: "University's biggest cultural extravaganza", registrations: 567, maxCapacity: 1000, image: null, tags: ['Dance', 'Music', 'Art'], organizer: 'Student Council' },
-  { id: '3', title: 'Hackathon Sprint', department: 'IT Department', type: 'competition', date: '2026-03-15', time: '9:00 AM', venue: 'Innovation Lab', description: '24-hour coding challenge', registrations: 89, maxCapacity: 100, image: null, tags: ['Coding', 'Innovation'], organizer: 'IT Club' },
-  { id: '4', title: 'Career Fair 2026', department: 'Placement Cell', type: 'career', date: '2026-03-20', time: '11:00 AM', venue: 'Convention Center', description: 'Meet top recruiters from 50+ companies', registrations: 445, maxCapacity: 500, image: null, tags: ['Jobs', 'Internship', 'Networking'], organizer: 'Placement Cell' },
-  { id: '5', title: 'Photography Workshop', department: 'Arts', type: 'workshop', date: '2026-03-08', time: '2:00 PM', venue: 'Media Room 101', description: 'Learn professional photography techniques', registrations: 45, maxCapacity: 60, image: null, tags: ['Photography', 'Art', 'Creative'], organizer: 'Photo Club' },
-];
+let events = [];
 
 let transportRoutes = [
   { id: '1', name: 'Route A - City Center', stops: ['Campus Gate', 'Market Square', 'Railway Station', 'Bus Terminus'], frequency: '30 mins', firstBus: '6:00 AM', lastBus: '10:00 PM', currentStatus: 'on-time', nextArrival: 8, vehicleType: 'Electric Bus', capacity: 50, currentPassengers: 32 },
@@ -171,16 +157,15 @@ let transportRoutes = [
 ];
 
 let campusBuildings = [
-  { id: '1', name: 'Main Academic Block', type: 'academic', lat: 28.6139, lng: 77.2090, description: 'Primary teaching block with 60 classrooms', floors: 5, facilities: ['Classrooms', 'Faculty Offices', 'Smart Boards'] },
-  { id: '2', name: 'Library & Resource Center', type: 'library', lat: 28.6145, lng: 77.2085, description: 'State-of-the-art library with 50,000+ books', floors: 3, facilities: ['Reading Halls', 'Digital Library', 'Study Rooms'] },
-  { id: '3', name: 'Engineering Block A', type: 'department', lat: 28.6132, lng: 77.2098, description: 'Home to CS, IT, and ECE departments', floors: 6, facilities: ['Labs', 'Workshops', 'Research Centers'] },
-  { id: '4', name: "Boys' Hostel", type: 'hostel', lat: 28.6150, lng: 77.2075, description: 'Accommodation for 800 male students', floors: 8, facilities: ['Rooms', 'Common Room', 'Gym', 'Mess'] },
-  { id: '5', name: "Girls' Hostel", type: 'hostel', lat: 28.6128, lng: 77.2110, description: 'Accommodation for 600 female students', floors: 6, facilities: ['Rooms', 'Common Room', 'Beauty Salon', 'Mess'] },
-  { id: '6', name: 'Sports Complex', type: 'sports', lat: 28.6120, lng: 77.2080, description: 'Multi-sport facility', floors: 2, facilities: ['Cricket Ground', 'Football Field', 'Basketball Court', 'Swimming Pool'] },
-  { id: '7', name: 'Student Activity Center', type: 'activity', lat: 28.6142, lng: 77.2102, description: 'Hub for student clubs and events', floors: 3, facilities: ['Auditorium', 'Music Room', 'Art Studio', 'Club Rooms'] },
-  { id: '8', name: 'Main Canteen', type: 'food', lat: 28.6136, lng: 77.2093, description: 'Central dining facility serving 2000+ students', floors: 1, facilities: ['Food Court', 'Juice Bar', 'Mess Hall'] },
-  { id: '9', name: 'Medical Center', type: 'health', lat: 28.6148, lng: 77.2100, description: '24/7 campus health facility', floors: 2, facilities: ['OPD', 'Emergency', 'Pharmacy', 'Counseling'] },
-  { id: '10', name: 'Administration Block', type: 'admin', lat: 28.6141, lng: 77.2082, description: 'Central administrative offices', floors: 4, facilities: ['Registrar', 'Accounts', 'Examination Cell'] },
+  { id: '1', name: 'Academic Block A (Biotechnology)', type: 'academic', lat: 22.8434, lng: 86.1024, description: 'Center for Pharmaceutical and Life Sciences', floors: 4, facilities: ['Bio-Tech Labs', 'Research Cell'], image: '/artifacts/aju_campus_main_gate_1772104555214.png' },
+  { id: '2', name: 'Academic Block B (Pharmacy)', type: 'academic', lat: 22.8430, lng: 86.1028, description: 'Dedicated wing for B.Pharma and M.Pharma students', floors: 4, facilities: ['Chemistry Lab', 'Drug Research'] },
+  { id: '3', name: 'Academic Block C (Engineering & Library)', type: 'academic', lat: 22.8426, lng: 86.1032, description: 'Home to Engineering departments and the University Central Library', floors: 5, facilities: ['Computer Labs', 'Central Library', 'Electronics Lab'] },
+  { id: '4', name: 'Academic Block D (Workshop Area)', type: 'academic', lat: 22.8422, lng: 86.1036, description: 'Practical training area and central engineering workshops', floors: 1, facilities: ['Mechanical Shop', 'Project Lab'] },
+  { id: '5', name: 'Academic Block E (Diploma & BCA)', type: 'academic', lat: 22.8418, lng: 86.1040, description: 'Academic center for Diploma and BCA students', floors: 4, facilities: ['Programming Hub', 'Language Lab'] },
+  { id: '6', name: 'Academic Block F (Management)', type: 'academic', lat: 22.8414, lng: 86.1044, description: 'Center for Commerce and Management studies', floors: 4, facilities: ['Seminar Hall', 'Placement Office'] },
+  { id: '7', name: 'Nescafe', type: 'food', lat: 22.8436, lng: 86.1020, description: 'University coffee point and hangout zone', floors: 1, facilities: ['Coffee Bar', 'Snacks'] },
+  { id: '8', name: 'All Is Well', type: 'food', lat: 22.8440, lng: 86.1016, description: 'Main vegetarian canteen serving meals and refreshments', floors: 1, facilities: ['Main Dining', 'Buffet'] },
+  { id: '9', name: 'Arka Jain University Office', type: 'admin', lat: 22.7938, lng: 86.1852, description: 'City Admission & Administrative Office (Dhatkidih)', floors: 3, facilities: ['Admission Cell', 'Administrative Desk'] },
 ];
 
 // ======================== SOCKET.IO ========================

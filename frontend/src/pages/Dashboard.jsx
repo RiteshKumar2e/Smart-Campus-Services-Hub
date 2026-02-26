@@ -16,13 +16,7 @@ const QUICK_ACCESS = [
     { to: '/maintenance', icon: '📊', title: 'Issue Tracker', subtitle: 'View my reports', bg: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)', color: '#0369a1' },
 ]
 
-const ACTIVITIES = [
-    { icon: '✅', iconBg: '#dcfce7', title: 'Canteen Order Ready', desc: 'Your Masala Dosa + Cold Coffee is ready for pickup!', time: '2 min ago' },
-    { icon: '🔧', iconBg: '#dbeafe', title: 'Maintenance Update', desc: 'Issue #MNT-042 status changed to "In Progress"', time: '15 min ago' },
-    { icon: '🎉', iconBg: '#ede9fe', title: 'Event Reminder', desc: 'Tech Symposium 2026 starts in 2 days • Auditorium', time: '1 hr ago' },
-    { icon: '🔍', iconBg: '#dcfce7', title: 'Lost Item Match!', desc: 'Someone found an item matching your "Blue Backpack" report', time: '3 hr ago' },
-    { icon: '🚌', iconBg: '#fef9c3', title: 'Bus Alert', desc: 'Route B is delayed by 8 minutes due to traffic', time: '5 hr ago' },
-]
+const ACTIVITIES = []
 
 export default function Dashboard() {
     const [kitchenStatus, setKitchenStatus] = useState({ isOpen: true, avgWaitTime: 12, activeOrders: 5 })
@@ -59,10 +53,10 @@ export default function Dashboard() {
     }, [])
 
     const stats = [
-        { icon: '🍽️', bg: '#fef9c3', label: 'Active Orders', val: '3', change: '↑ 2 today', up: true },
-        { icon: '🔧', bg: '#fee2e2', label: 'Open Issues', val: '2', change: '↓ 1 resolved', up: false },
-        { icon: '🎉', bg: '#ede9fe', label: 'Events This Week', val: '8', change: '↑ 3 new', up: true },
-        { icon: '🚌', bg: '#e0f2fe', label: 'Next Bus', val: '8m', change: 'Route B on time', up: true },
+        { icon: '🍽️', bg: '#fef9c3', label: 'Active Orders', val: '0', change: '—', up: true },
+        { icon: '🔧', bg: '#fee2e2', label: 'Open Issues', val: '0', change: '—', up: false },
+        { icon: '🎉', bg: '#ede9fe', label: 'Events This Week', val: '0', change: '—', up: true },
+        { icon: '🚌', bg: '#e0f2fe', label: 'Next Bus', val: '—', change: 'Check schedule', up: true },
     ]
 
     return (
@@ -117,7 +111,7 @@ export default function Dashboard() {
                             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700 }}>Recent Activity</h2>
                             <button style={{ background: 'none', border: 'none', color: 'var(--primary)', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>View all</button>
                         </div>
-                        {ACTIVITIES.map((a, i) => (
+                        {ACTIVITIES.length > 0 ? ACTIVITIES.map((a, i) => (
                             <div className="activity-item" key={i}>
                                 <div className="activity-icon" style={{ background: a.iconBg }}>{a.icon}</div>
                                 <div className="activity-content">
@@ -126,7 +120,11 @@ export default function Dashboard() {
                                 </div>
                                 <div className="activity-time">{a.time}</div>
                             </div>
-                        ))}
+                        )) : (
+                            <div style={{ textAlign: 'center', padding: '20px', color: '#666', fontSize: '14px' }}>
+                                📭 No recent activity
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Side */}
@@ -175,23 +173,9 @@ export default function Dashboard() {
                                         <div className="event-strip-meta">📅 {e.date} • {e.venue}</div>
                                     </div>
                                 )) : (
-                                    <>
-                                        <div className="event-strip-card">
-                                            <div className="event-strip-type">Workshop</div>
-                                            <div className="event-strip-title">Tech Symposium 2026</div>
-                                            <div className="event-strip-meta">📅 Mar 5 • Auditorium</div>
-                                        </div>
-                                        <div className="event-strip-card">
-                                            <div className="event-strip-type">Fest</div>
-                                            <div className="event-strip-title">Cultural Fest - Utsav</div>
-                                            <div className="event-strip-meta">📅 Mar 10 • Amphitheater</div>
-                                        </div>
-                                        <div className="event-strip-card">
-                                            <div className="event-strip-type">Competition</div>
-                                            <div className="event-strip-title">Hackathon Sprint</div>
-                                            <div className="event-strip-meta">📅 Mar 15 • Innovation Lab</div>
-                                        </div>
-                                    </>
+                                    <div style={{ textAlign: 'center', padding: '20px', color: '#666', fontSize: '13px' }}>
+                                        📅 No upcoming events
+                                    </div>
                                 )}
                             </div>
                         </div>
