@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Toaster, toast } from 'react-hot-toast'
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import '../styles/auth.css'
 
 export default function Register() {
@@ -11,6 +12,8 @@ export default function Register() {
         password: '',
         confirmPassword: ''
     })
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -31,102 +34,99 @@ export default function Register() {
 
     return (
         <div className="auth-page">
-            <Link to="/" className="auth-back-home">
-                <span>←</span> Back to Home
+            <Link to="/" className="back-to-home">
+                <ArrowLeft size={16} /> Back to Home
             </Link>
-            <div className="auth-card" style={{ maxWidth: '480px' }}>
-                <div className="auth-header">
-                    <div className="auth-logo">🎓</div>
-                    <h1 className="auth-title">Join SmartCampus</h1>
-                    <p className="auth-subtitle">Create your student account today</p>
+
+            <div className="auth-card" style={{ maxWidth: '520px' }}>
+                <div className="university-header">
+                    <div className="logo-jgi">JGi</div>
+                    <div className="university-name-block">
+                        <div className="uni-name-main">
+                            Arka <span className="uni-name-highlight">Jain</span>
+                        </div>
+                        <div className="uni-name-main" style={{ fontSize: '15px' }}>University</div>
+                        <div className="uni-location">Jharkhand</div>
+                    </div>
+                    <div className="naac-info">
+                        <div className="naac-badge">NAAC GRADE A</div>
+                    </div>
+                </div>
+
+                <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+                    <h2 style={{ fontSize: '20px', color: '#3c3b62', margin: 0 }}>Student Registration</h2>
+                    <p style={{ fontSize: '14px', color: '#666', marginTop: '5px' }}>Join the SmartCampus ecosystem</p>
                 </div>
 
                 <form className="auth-form" onSubmit={handleRegister}>
-                    <div className="auth-input-group">
-                        <label className="auth-label">Full Name</label>
-                        <div className="auth-input-wrapper">
-                            <span className="auth-input-icon">👤</span>
-                            <input
-                                type="text"
-                                className="auth-input"
-                                placeholder="Ritesh Kumar"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                required
-                            />
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            className="login-input"
+                            placeholder="Full Name (e.g. Ritesh Kumar)"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <input
+                            type="email"
+                            className="login-input"
+                            placeholder="Email Address"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            className="login-input"
+                            placeholder="Enrollment No. / Student ID (e.g. AJU/221403)"
+                            value={formData.studentId}
+                            onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="login-input"
+                            placeholder="Create Password"
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            required
+                        />
+                        <div className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                        <div className="auth-input-group">
-                            <label className="auth-label">Campus Email</label>
-                            <div className="auth-input-wrapper">
-                                <span className="auth-input-icon">📧</span>
-                                <input
-                                    type="email"
-                                    className="auth-input"
-                                    placeholder="name@campus.edu"
-                                    style={{ paddingLeft: '38px' }}
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="auth-input-group">
-                            <label className="auth-label">Student ID</label>
-                            <div className="auth-input-wrapper">
-                                <span className="auth-input-icon">🆔</span>
-                                <input
-                                    type="text"
-                                    className="auth-input"
-                                    placeholder="CS21B10"
-                                    style={{ paddingLeft: '38px' }}
-                                    value={formData.studentId}
-                                    onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                                    required
-                                />
-                            </div>
+                    <div className="input-container">
+                        <input
+                            type={showConfirmPassword ? "text" : "password"}
+                            className="login-input"
+                            placeholder="Confirm Password"
+                            value={formData.confirmPassword}
+                            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                            required
+                        />
+                        <div className="eye-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </div>
                     </div>
 
-                    <div className="auth-input-group">
-                        <label className="auth-label">Create Password</label>
-                        <div className="auth-input-wrapper">
-                            <span className="auth-input-icon">🔒</span>
-                            <input
-                                type="password"
-                                className="auth-input"
-                                placeholder="••••••••"
-                                value={formData.password}
-                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <div className="auth-input-group">
-                        <label className="auth-label">Confirm Password</label>
-                        <div className="auth-input-wrapper">
-                            <span className="auth-input-icon">🛡️</span>
-                            <input
-                                type="password"
-                                className="auth-input"
-                                placeholder="••••••••"
-                                value={formData.confirmPassword}
-                                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <button type="submit" className="auth-submit" disabled={loading}>
-                        {loading ? 'Creating Account...' : 'Create Account'}
+                    <button type="submit" className="login-submit-btn" disabled={loading} style={{ marginTop: '10px' }}>
+                        {loading ? 'Creating Account...' : 'CREATE ACCOUNT'}
                     </button>
                 </form>
 
-                <div className="auth-footer">
-                    Already have an account? <Link to="/login" className="auth-link">Sign In</Link>
+                <div className="auth-links">
+                    Already have an account? <Link to="/login">Sign In Instead</Link>
                 </div>
             </div>
         </div>
