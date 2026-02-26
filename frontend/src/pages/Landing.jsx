@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 import '../styles/landing.css'
 import ThreeBackground from '../components/ThreeBackground'
 
@@ -68,9 +69,11 @@ export default function Landing() {
                         <span className="hero-logo-text">Smart<span>Campus</span></span>
                     </Link>
                     <ul className="hero-nav-links">
+                        <li><a href="/">Home</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#how">How It Works</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                     <div className="hero-nav-cta">
                         <Link to="/login" className="btn btn-primary">
@@ -262,6 +265,56 @@ export default function Landing() {
                     <Link to="/dashboard" className="cta-btn">
                         🚀 Launch Smart Campus Hub
                     </Link>
+                </div>
+            </section>
+
+            {/* Contact Section */}
+            <section className="contact-section" id="contact" style={{ padding: '100px 0', background: 'white' }}>
+                <div className="container">
+                    <div className="section-header">
+                        <div className="section-label">📞 Get in Touch</div>
+                        <h2 className="section-main-title">Contact Our Team</h2>
+                        <p className="section-desc">Have questions or feedback? We'd love to hear from you.</p>
+                    </div>
+
+                    <div className="contact-grid">
+                        <div className="contact-info">
+                            <div className="contact-card">
+                                <div className="contact-card-icon">📍</div>
+                                <div>
+                                    <h4>Visit Us</h4>
+                                    <p>Academic Block A, Campus East</p>
+                                </div>
+                            </div>
+                            <div className="contact-card">
+                                <div className="contact-card-icon">📧</div>
+                                <div>
+                                    <h4>Email Us</h4>
+                                    <p>support@campus-hub.edu</p>
+                                </div>
+                            </div>
+                            <div className="contact-card">
+                                <div className="contact-card-icon">📱</div>
+                                <div>
+                                    <h4>Call Us</h4>
+                                    <p>+91 98765 43210</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form className="contact-form" onSubmit={(e) => { e.preventDefault(); toast.success('Message sent! We will get back to you.') }}>
+                            <div className="form-group">
+                                <input type="text" placeholder="Your Name" required />
+                            </div>
+                            <div className="form-group">
+                                <input type="email" placeholder="Campus Email" required />
+                            </div>
+                            <div className="form-group">
+                                <textarea placeholder="How can we help?" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
+                        </form>
+                    </div>
                 </div>
             </section>
 
