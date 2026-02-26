@@ -933,6 +933,106 @@
   transform: translateY(-3px);
 }
 
+/* Admin Button */
+.btn-admin {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-full) !important;
+  font-weight: 500;
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+.btn-admin:hover {
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+  transform: translateY(-2px);
+}
+
+.hero-nav .btn-primary {
+  border-radius: var(--radius-full) !important;
+  font-weight: 500;
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+/* Mission & Goals */
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.mission-card {
+  padding: 40px;
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  border: 1px solid var(--gray-100);
+}
+
+.mission-card:hover {
+  background: white;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+  border-color: var(--primary-light);
+}
+
+.mission-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.goals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+  margin: 50px auto 0;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.goal-item:hover {
+  background: white;
+  box-shadow: var(--shadow-md);
+  transform: translateX(10px);
+}
+
+.goal-icon {
+  font-size: 40px;
+  min-width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.goal-info h4 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--gray-900);
+  margin-bottom: 5px;
+}
+
+.goal-info p {
+  color: var(--gray-600);
+}
+
 @media (max-width: 1024px) {
   .features-grid {
     grid-template-columns: repeat(2, 1fr);

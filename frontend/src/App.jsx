@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
+import AdminLogin from './pages/AdminLogin'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Canteen from './pages/Canteen'
@@ -15,6 +16,7 @@ import Navbar from './components/Navbar'
 function App() {
   return (
     <BrowserRouter>
+      {/* ... Toaster part stays ... */}
       <Toaster
         position="top-right"
         toastOptions={{
@@ -36,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<><Navbar /><Dashboard /></>} />
         <Route path="/canteen" element={<><Navbar /><Canteen /></>} />

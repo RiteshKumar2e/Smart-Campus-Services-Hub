@@ -71,17 +71,17 @@ export default function Landing() {
                     </Link>
                     <ul className="hero-nav-links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="#mission">Mission</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#goals">Goals</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                     <div className="hero-nav-cta">
                         <Link to="/login" className="btn btn-primary">
-                            Sign In →
+                            Sign In
                         </Link>
-                        <Link to="/register" className="btn btn-secondary">
-                            Register
+                        <Link to="/admin-login" className="btn btn-admin">
+                            Admin Login
                         </Link>
                     </div>
                 </nav>
@@ -134,6 +134,35 @@ export default function Landing() {
                 <div className="hero-scroll-indicator">
                     <span>Scroll to explore</span>
                     <div className="scroll-arrow">↓</div>
+                </div>
+            </section>
+
+            {/* Mission Section */}
+            <section className="mission-section" id="mission" style={{ padding: '100px 0', background: 'white' }}>
+                <div className="container">
+                    <div className="section-header">
+                        <div className="section-label">🎯 Our Mission</div>
+                        <h2 className="section-main-title">Bridging the Gap Between<br /><span className="highlight">Students & Campus Services</span></h2>
+                        <p className="section-desc">
+                            Our mission is to eliminate the chaos of scattered WhatsApp groups and manual processes.
+                            By unifying essential services into a single, intuitive platform, we empower students
+                            to focus more on learning and less on campus logistics.
+                        </p>
+                    </div>
+                    <div className="mission-grid">
+                        <div className="mission-card">
+                            <h3>Efficiency</h3>
+                            <p>Reducing time spent on daily tasks like food ordering and issue reporting by 50%.</p>
+                        </div>
+                        <div className="mission-card">
+                            <h3>Transparency</h3>
+                            <p>Real-time tracking for every request, from kitchen orders to plumbing fixes.</p>
+                        </div>
+                        <div className="mission-card">
+                            <h3>Connection</h3>
+                            <p>A central hub that connects the entire campus community instantly.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -206,31 +235,35 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* Testimonials */}
-            <section style={{ padding: '100px 0', background: 'var(--gray-50)' }}>
+            {/* Goals Section */}
+            <section className="goals-section" id="goals" style={{ padding: '100px 0', background: 'white' }}>
                 <div className="container">
                     <div className="section-header">
-                        <div className="section-label">💬 Testimonials</div>
-                        <h2 className="section-main-title">What Students Say</h2>
+                        <div className="section-label">🚀 Our Goals</div>
+                        <h2 className="section-main-title">Designing the Future of<br /><span className="highlight">Digital Campus Living</span></h2>
                     </div>
-                    <div className="testimonials-grid">
-                        {[
-                            { name: 'Rahul Sharma', role: '3rd Year CSE', text: 'The canteen pre-ordering is a lifesaver. No more standing in line for 20 minutes between classes!', avatar: '👨‍🎓' },
-                            { name: 'Priya Verma', role: '2nd Year Arts', text: 'Found my lost keys within 2 hours thanks to the auto-matching system. It actually works!', avatar: '👩‍🎓' },
-                            { name: 'Aman Gupta', role: '4th Year IT', text: 'Reporting a leak in the hostel was so easy. The plumber arrived in 30 minutes. Amazing efficiency.', avatar: '👨‍🎓' }
-                        ].map((t, i) => (
-                            <div key={i} className="testimonial-card animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                                <div className="testimonial-quote">"</div>
-                                <p className="testimonial-text">{t.text}</p>
-                                <div className="testimonial-author">
-                                    <div className="testimonial-avatar">{t.avatar}</div>
-                                    <div>
-                                        <div className="testimonial-name">{t.name}</div>
-                                        <div className="testimonial-role">{t.role}</div>
-                                    </div>
-                                </div>
+                    <div className="goals-container">
+                        <div className="goal-item">
+                            <div className="goal-icon">📊</div>
+                            <div className="goal-info">
+                                <h4>100% Digital Workflow</h4>
+                                <p>Transitioning all physical paperwork and manual registrations to automated digital systems.</p>
                             </div>
-                        ))}
+                        </div>
+                        <div className="goal-item">
+                            <div className="goal-icon">🤖</div>
+                            <div className="goal-info">
+                                <h4>AI-Powered Support</h4>
+                                <p>Implementing smart assistants to handle instant queries and automated lost-and-found matching.</p>
+                            </div>
+                        </div>
+                        <div className="goal-item">
+                            <div className="goal-icon">📱</div>
+                            <div className="goal-info">
+                                <h4>Unified Ecosystem</h4>
+                                <p>Expanding to include libraries, lab bookings, and faculty appointments by late 2026.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -258,56 +291,8 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="cta-section" id="about">
-                <div className="cta-banner">
-                    <h2 className="cta-title">Ready to Simplify Campus Life?</h2>
-                    <p className="cta-desc">Join thousands of students already saving 30+ minutes every day.</p>
-                    <Link to="/dashboard" className="cta-btn">
-                        🚀 Launch Smart Campus Hub
-                    </Link>
-                </div>
-            </section>
-
-            {/* Contact Section */}
-            <section className="contact-section" id="contact" style={{ padding: '100px 0', background: 'white' }}>
-                <div className="container">
-                    <div className="section-header">
-                        <div className="section-label">📞 Get in Touch</div>
-                        <h2 className="section-main-title">Contact Our Team</h2>
-                        <p className="section-desc">Have questions or feedback? We'd love to hear from you.</p>
-                    </div>
-
-                    <div className="contact-grid center-grid">
-                        <div className="contact-info horizontal-info">
-                            <a href="mailto:riteshkumar90359@gmail.com" className="contact-card">
-                                <div className="contact-card-icon"><Mail size={24} /></div>
-                                <div>
-                                    <h4>Email Us</h4>
-                                    <p>riteshkumar90359@gmail.com</p>
-                                </div>
-                            </a>
-                            <a href="https://github.com/RiteshKumar2e" target="_blank" rel="noopener noreferrer" className="contact-card">
-                                <div className="contact-card-icon"><Github size={24} /></div>
-                                <div>
-                                    <h4>Github</h4>
-                                    <p>RiteshKumar2e</p>
-                                </div>
-                            </a>
-                            <a href="https://www.linkedin.com/in/ritesh-kumar-b3a654253" target="_blank" rel="noopener noreferrer" className="contact-card">
-                                <div className="contact-card-icon"><Linkedin size={24} /></div>
-                                <div>
-                                    <h4>LinkedIn</h4>
-                                    <p>Ritesh Kumar</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Footer */}
-            <footer className="footer">
+            <footer className="footer" id="contact">
                 <div className="footer-inner">
                     <div className="footer-brand">
                         <div className="hero-logo">
