@@ -8,6 +8,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const { handleChat } = require('./chatbot');
 
 const app = express();
 const server = http.createServer(app);
@@ -115,6 +116,9 @@ setInterval(() => {
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), service: 'Smart Campus Services Hub' });
 });
+
+// ---- CHATBOT ----
+app.post('/api/chat', handleChat);
 
 // ---- CANTEEN ----
 app.get('/api/canteen/menu', (req, res) => {
@@ -234,7 +238,7 @@ app.post('/api/lostandfound/items', upload.single('image'), (req, res) => {
   const matches = lostFoundItems.filter(existing =>
     existing.type !== type && existing.status === 'active' &&
     (existing.title.toLowerCase().includes(title.toLowerCase().split(' ')[0]) ||
-     existing.category === item.category)
+      existing.category === item.category)
   );
 
   lostFoundItems.unshift(item);

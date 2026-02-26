@@ -4,12 +4,19 @@ import { toast } from 'react-hot-toast'
 import { Mail, Github, Linkedin, MapPin, Phone, X, ArrowUp, Bot } from 'lucide-react'
 import '../styles/landing.css'
 import ThreeBackground from '../components/ThreeBackground'
+import Chatbot from '../components/Chatbot'
 
 const FEATURES = [
     {
         icon: '🍽️',
         title: 'Smart Canteen',
         desc: 'Pre-order meals with real-time kitchen status and precise pickup ETA. Skip the queue.',
+        points: [
+            'Digital menu with real-time availability',
+            'Skip the queue with pre-ordered sessions',
+            'Live kitchen tracking and pickup timer',
+            'Secure UPI and Campus Wallet payments'
+        ],
         color: 'linear-gradient(135deg, #fef9c3, #fef3c7)',
         link: '/canteen'
     },
@@ -17,6 +24,12 @@ const FEATURES = [
         icon: '🔧',
         title: 'Issue Reporting',
         desc: 'Report maintenance issues with photo + GPS pin. Get real-time status updates.',
+        points: [
+            'Precise GPS-tagged problem reporting',
+            'Attach photos for better issue clarity',
+            'Real-time technician tracking',
+            'Feedback loop on resolution quality'
+        ],
         color: 'linear-gradient(135deg, #fee2e2, #fecaca)',
         link: '/maintenance'
     },
@@ -24,6 +37,12 @@ const FEATURES = [
         icon: '🔍',
         title: 'Lost & Found',
         desc: 'Post lost items with photos. AI auto-matches and notifies when your item is found.',
+        points: [
+            'AI-driven matching for lost belongings',
+            'Instant notifications on potential matches',
+            'Secure verification process for claims',
+            'Broadcast lost reports to entire campus'
+        ],
         color: 'linear-gradient(135deg, #dcfce7, #d1fae5)',
         link: '/lost-found'
     },
@@ -31,6 +50,12 @@ const FEATURES = [
         icon: '🎉',
         title: 'Event Discovery',
         desc: 'Department-wise push notifications for workshops, fests, and career opportunities.',
+        points: [
+            'Personalized department-wise event feeds',
+            'One-tap registration and digital passes',
+            'Real-time venue and schedule changes',
+            'Networking opportunities with organizers'
+        ],
         color: 'linear-gradient(135deg, #ede9fe, #ddd6fe)',
         link: '/events'
     },
@@ -38,6 +63,12 @@ const FEATURES = [
         icon: '🗺️',
         title: 'Campus Navigation',
         desc: 'Interactive map with live "you-are-here" dot and smart pathfinding to any building.',
+        points: [
+            '3D-interactive campus layout',
+            'Accurate pathfinding for shortcuts',
+            'Building-wise facility directories',
+            'Live "You Are Here" positioning'
+        ],
         color: 'linear-gradient(135deg, #e0f2fe, #bae6fd)',
         link: '/map'
     },
@@ -45,6 +76,12 @@ const FEATURES = [
         icon: '🚌',
         title: 'Transport Tracker',
         desc: 'Live bus tracking, route status, and next arrival times across all campus routes.',
+        points: [
+            'Real-time GPS tracking of campus buses',
+            'Live ETA for every designated stop',
+            'Crowd-density status for bus routes',
+            'Emergency delayed-bus notifications'
+        ],
         color: 'linear-gradient(135deg, #f0fdf4, #dcfce7)',
         link: '/transport'
     },
@@ -74,6 +111,7 @@ const SUPPORT_LINKS = [
 export default function Landing() {
     const [modalData, setModalData] = useState(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const [showChatbot, setShowChatbot] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -95,18 +133,34 @@ export default function Landing() {
             {modalData && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <button className="modal-close-x" onClick={closeModal}>
-                            <X size={20} />
-                        </button>
-                        <div className="modal-header">
-                            <h2>{modalData.title}</h2>
+                        <div className="modal-top-bar">
+                            <div className="modal-icon-header">
+                                {modalData.icon || '🎓'}
+                            </div>
+                            <button className="modal-close-x" onClick={closeModal} aria-label="Close">
+                                <X size={18} />
+                            </button>
                         </div>
-                        <div className="modal-body">
-                            <p>{modalData.desc}</p>
+
+                        <div className="modal-body-content">
+                            <h2 className="modal-title-main">{modalData.title}</h2>
+                            <p className="modal-desc-text">{modalData.desc}</p>
+
+                            {modalData.points && (
+                                <div className="modal-points-list">
+                                    {modalData.points.map((pt, idx) => (
+                                        <div key={idx} className="modal-point-item">
+                                            <div className="modal-check-icon">✓</div>
+                                            <span>{pt}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                        <div className="modal-footer">
-                            <button className="btn btn-primary btn-block" onClick={closeModal}>
-                                Close
+
+                        <div className="modal-footer-action">
+                            <button className="btn-modal-primary" onClick={closeModal}>
+                                Got it, Awesome!
                             </button>
                         </div>
                     </div>
@@ -231,16 +285,21 @@ export default function Landing() {
                 </div>
                 <div className="features-grid">
                     {FEATURES.map((f, i) => (
-                        <Link to={f.link} className="feature-card" key={i} style={{ animationDelay: `${i * 0.08}s` }}>
+                        <div
+                            className="feature-card clickable"
+                            key={i}
+                            style={{ animationDelay: `${i * 0.08}s` }}
+                            onClick={() => setModalData({ title: f.title, desc: f.desc, points: f.points, icon: f.icon })}
+                        >
                             <div className="feature-card-icon" style={{ background: f.color }}>
                                 {f.icon}
                             </div>
                             <h3 className="feature-card-title">{f.title}</h3>
                             <p className="feature-card-desc">{f.desc}</p>
                             <div className="feature-card-arrow">
-                                Explore <span>→</span>
+                                Explore Details <span>→</span>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </section>
@@ -365,7 +424,7 @@ export default function Landing() {
                         <ul>
                             {FEATURES.map(f => (
                                 <li key={f.link}>
-                                    <button onClick={() => setModalData({ title: f.title, desc: f.desc })} className="footer-pop-btn">
+                                    <button onClick={() => setModalData({ title: f.title, desc: f.desc, points: f.points, icon: f.icon })} className="footer-pop-btn">
                                         {f.title}
                                     </button>
                                 </li>
@@ -413,10 +472,7 @@ export default function Landing() {
                     <ArrowUp size={24} />
                 </button>
 
-                <div className="chatbot-launcher" onClick={() => setModalData({
-                    title: 'Smart AI Assistant',
-                    desc: 'I am your campus AI helpmate. How can I assist you today? (This is a preview of the upcoming chatbot feature!)'
-                })}>
+                <div className="chatbot-launcher" onClick={() => setShowChatbot(true)}>
                     <div className="chatbot-ai-ring" />
                     <div className="chatbot-ai-icon">
                         <Bot size={28} />
@@ -424,6 +480,8 @@ export default function Landing() {
                     <span className="chatbot-badge">Hi!</span>
                 </div>
             </div>
+
+            {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
         </div>
     )
 }
