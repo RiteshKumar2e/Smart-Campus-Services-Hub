@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-import { Mail, Github, Linkedin, MapPin, Phone } from 'lucide-react'
+import { Mail, Github, Linkedin, MapPin, Phone, X, ArrowUp, Bot } from 'lucide-react'
 import '../styles/landing.css'
 import ThreeBackground from '../components/ThreeBackground'
 
@@ -56,9 +57,62 @@ const STEPS = [
     { num: '04', title: 'Get Updates', desc: 'Real-time notifications keep you in the loop always' },
 ]
 
+const CAMPUS_LINKS = [
+    { title: 'Student Portal', desc: 'Access your grades, attendance, and course materials in one place.' },
+    { title: 'Academic Calendar', desc: 'Stay updated with exam schedules, holidays, and important dates.' },
+    { title: 'Faculty Directory', desc: 'Find contact information and office hours for your professors.' },
+    { title: 'Alumni Network', desc: 'Connect with former students and explore mentorship opportunities.' }
+]
+
+const SUPPORT_LINKS = [
+    { title: 'Help Center', desc: 'Find answers to frequently asked questions and troubleshooting guides.' },
+    { title: 'Report Bug', desc: 'Help us improve by reporting any technical issues you encounter.' },
+    { title: 'Privacy Policy', desc: 'Learn how we protect and manage your personal data.' },
+    { title: 'Terms of Use', desc: 'The rules and guidelines for using our campus platform.' }
+]
+
 export default function Landing() {
+    const [modalData, setModalData] = useState(null);
+    const [showScrollTop, setShowScrollTop] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 400);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const closeModal = () => setModalData(null);
+
     return (
         <div className="landing">
+            {/* Modal Popup */}
+            {modalData && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <button className="modal-close-x" onClick={closeModal}>
+                            <X size={20} />
+                        </button>
+                        <div className="modal-header">
+                            <h2>{modalData.title}</h2>
+                        </div>
+                        <div className="modal-body">
+                            <p>{modalData.desc}</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn btn-primary btn-block" onClick={closeModal}>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Hero */}
             <section className="hero">
                 <ThreeBackground />
@@ -309,25 +363,37 @@ export default function Landing() {
                     <div className="footer-col">
                         <h4>Services</h4>
                         <ul>
-                            {FEATURES.map(f => <li key={f.link}><Link to={f.link}>{f.title}</Link></li>)}
+                            {FEATURES.map(f => (
+                                <li key={f.link}>
+                                    <button onClick={() => setModalData({ title: f.title, desc: f.desc })} className="footer-pop-btn">
+                                        {f.title}
+                                    </button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div className="footer-col">
                         <h4>Campus</h4>
                         <ul>
-                            <li><a href="#">Student Portal</a></li>
-                            <li><a href="#">Academic Calendar</a></li>
-                            <li><a href="#">Faculty Directory</a></li>
-                            <li><a href="#">Alumni Network</a></li>
+                            {CAMPUS_LINKS.map(c => (
+                                <li key={c.title}>
+                                    <button onClick={() => setModalData({ title: c.title, desc: c.desc })} className="footer-pop-btn">
+                                        {c.title}
+                                    </button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div className="footer-col">
                         <h4>Support</h4>
                         <ul>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Report Bug</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Use</a></li>
+                            {SUPPORT_LINKS.map(s => (
+                                <li key={s.title}>
+                                    <button onClick={() => setModalData({ title: s.title, desc: s.desc })} className="footer-pop-btn">
+                                        {s.title}
+                                    </button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -336,6 +402,28 @@ export default function Landing() {
                     <span>Built with ❤️ for modern campus life</span>
                 </div>
             </footer>
+
+            {/* Floating Elements */}
+            <div className="floating-controls">
+                <button
+                    className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
+                    onClick={scrollToTop}
+                    title="Scroll to Top"
+                >
+                    <ArrowUp size={24} />
+                </button>
+
+                <div className="chatbot-launcher" onClick={() => setModalData({
+                    title: 'Smart AI Assistant',
+                    desc: 'I am your campus AI helpmate. How can I assist you today? (This is a preview of the upcoming chatbot feature!)'
+                })}>
+                    <div className="chatbot-ai-ring" />
+                    <div className="chatbot-ai-icon">
+                        <Bot size={28} />
+                    </div>
+                    <span className="chatbot-badge">Hi!</span>
+                </div>
+            </div>
         </div>
     )
 }
