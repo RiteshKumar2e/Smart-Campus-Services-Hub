@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
+import { Mail, Github, Linkedin, MapPin, Phone } from 'lucide-react'
 import '../styles/landing.css'
 import ThreeBackground from '../components/ThreeBackground'
 
@@ -277,43 +278,30 @@ export default function Landing() {
                         <p className="section-desc">Have questions or feedback? We'd love to hear from you.</p>
                     </div>
 
-                    <div className="contact-grid">
-                        <div className="contact-info">
-                            <div className="contact-card">
-                                <div className="contact-card-icon">📍</div>
-                                <div>
-                                    <h4>Visit Us</h4>
-                                    <p>Academic Block A, Campus East</p>
-                                </div>
-                            </div>
-                            <div className="contact-card">
-                                <div className="contact-card-icon">📧</div>
+                    <div className="contact-grid center-grid">
+                        <div className="contact-info horizontal-info">
+                            <a href="mailto:riteshkumar90359@gmail.com" className="contact-card">
+                                <div className="contact-card-icon"><Mail size={24} /></div>
                                 <div>
                                     <h4>Email Us</h4>
-                                    <p>support@campus-hub.edu</p>
+                                    <p>riteshkumar90359@gmail.com</p>
                                 </div>
-                            </div>
-                            <div className="contact-card">
-                                <div className="contact-card-icon">📱</div>
+                            </a>
+                            <a href="https://github.com/RiteshKumar2e" target="_blank" rel="noopener noreferrer" className="contact-card">
+                                <div className="contact-card-icon"><Github size={24} /></div>
                                 <div>
-                                    <h4>Call Us</h4>
-                                    <p>+91 98765 43210</p>
+                                    <h4>Github</h4>
+                                    <p>RiteshKumar2e</p>
                                 </div>
-                            </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ritesh-kumar-b3a654253" target="_blank" rel="noopener noreferrer" className="contact-card">
+                                <div className="contact-card-icon"><Linkedin size={24} /></div>
+                                <div>
+                                    <h4>LinkedIn</h4>
+                                    <p>Ritesh Kumar</p>
+                                </div>
+                            </a>
                         </div>
-
-                        <form className="contact-form" onSubmit={(e) => { e.preventDefault(); toast.success('Message sent! We will get back to you.') }}>
-                            <div className="form-group">
-                                <input type="text" placeholder="Your Name" required />
-                            </div>
-                            <div className="form-group">
-                                <input type="email" placeholder="Campus Email" required />
-                            </div>
-                            <div className="form-group">
-                                <textarea placeholder="How can we help?" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-                        </form>
                     </div>
                 </div>
             </section>
@@ -327,6 +315,11 @@ export default function Landing() {
                             <span className="hero-logo-text" style={{ color: 'white' }}>Smart<span>Campus</span></span>
                         </div>
                         <p>Replacing inefficient processes with one unified digital platform for modern campus life.</p>
+                        <div className="footer-socials">
+                            <a href="https://github.com/RiteshKumar2e" target="_blank" rel="noopener noreferrer"><Github size={20} /></a>
+                            <a href="https://www.linkedin.com/in/ritesh-kumar-b3a654253" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
+                            <a href="mailto:riteshkumar90359@gmail.com"><Mail size={20} /></a>
+                        </div>
                     </div>
                     <div className="footer-col">
                         <h4>Services</h4>
