@@ -1157,6 +1157,55 @@
   transform: translateX(4px);
 }
 
+/* --- Modal Form Styles --- */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.modal-input-area {
+  width: 100%;
+  padding: 14px 18px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0f172a;
+  transition: all 0.2s ease;
+  resize: none;
+}
+
+.modal-input-area:focus {
+  outline: none;
+  background: white;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* --- Modal Contact Styles --- */
+.modal-contact-box {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 18px;
+}
+
 .modal-check-icon {
   width: 22px;
   height: 22px;

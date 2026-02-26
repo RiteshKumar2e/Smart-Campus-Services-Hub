@@ -95,17 +95,66 @@ const STEPS = [
 ]
 
 const CAMPUS_LINKS = [
-    { title: 'Student Portal', desc: 'Access your grades, attendance, and course materials in one place.' },
-    { title: 'Academic Calendar', desc: 'Stay updated with exam schedules, holidays, and important dates.' },
-    { title: 'Faculty Directory', desc: 'Find contact information and office hours for your professors.' },
-    { title: 'Alumni Network', desc: 'Connect with former students and explore mentorship opportunities.' }
+    {
+        title: 'Student Portal',
+        desc: 'Access your grades, attendance, and course materials in one place.',
+        icon: '👨‍🎓',
+        points: ['Live attendance tracking', 'Digital gradebook access', 'Personalized course schedule', 'Direct fee payment portal']
+    },
+    {
+        title: 'Academic Calendar',
+        desc: 'Stay updated with exam schedules, holidays, and important dates.',
+        icon: '📅',
+        points: ['Exam dates & venues', 'Official holiday listings', 'Cultural fest schedules', 'Assignment deadlines']
+    },
+    {
+        title: 'Faculty Directory',
+        desc: 'Find contact information and office hours for your professors.',
+        icon: '👨‍🏫',
+        points: ['Direct contact info', 'Digital office hours', 'Research area lookup', 'Instant meeting requests']
+    },
+    {
+        title: 'Alumni Network',
+        desc: 'Connect with former students and explore mentorship opportunities.',
+        icon: '🤝',
+        points: ['Mentorship programs', 'Global alumni directory', 'Job referral network', 'Annual reunion updates']
+    }
 ]
 
 const SUPPORT_LINKS = [
-    { title: 'Help Center', desc: 'Find answers to frequently asked questions and troubleshooting guides.' },
-    { title: 'Report Bug', desc: 'Help us improve by reporting any technical issues you encounter.' },
-    { title: 'Privacy Policy', desc: 'Learn how we protect and manage your personal data.' },
-    { title: 'Terms of Use', desc: 'The rules and guidelines for using our campus platform.' }
+    {
+        title: 'Help Center',
+        desc: 'Need immediate assistance? Our support team is here to help you with any queries or issues.',
+        icon: '🆘',
+        type: 'contact',
+        email: 'riteshkumar90359@gmail.com',
+        points: ['Direct email to campus admin', 'Average response time < 2 hours', 'Technical troubleshooting guides', 'Service-specific help docs']
+    },
+    {
+        title: 'Report Bug',
+        desc: 'Found something broken? Help us fix it by providing some quick details below.',
+        icon: '🐛',
+        type: 'form',
+        points: ['Attach screenshots/files', 'Track your report status', 'Earn developer credits', 'Priority bug fixing'],
+        formFields: [
+            { name: 'subject', type: 'text', placeholder: 'What is the issue?' },
+            { name: 'description', type: 'textarea', placeholder: 'Describe how it happened...' }
+        ]
+    },
+    {
+        title: 'Privacy Policy',
+        desc: 'We take your data security seriously. Here is how we handle your information on campus.',
+        icon: '🛡️',
+        type: 'info',
+        points: ['100% Data Encryption', 'Zero third-party sharing', 'GDPR & DPDP Compliant', 'User-controlled data logs', 'Regular security audits']
+    },
+    {
+        title: 'Terms of Use',
+        desc: 'Guidelines for a safe and respectful digital campus environment.',
+        icon: '📋',
+        type: 'info',
+        points: ['Authorized access only', 'Zero tolerance for harassment', 'Data integrity standards', 'Content moderation rules', 'Account responsibility']
+    }
 ]
 
 export default function Landing() {
@@ -146,22 +195,51 @@ export default function Landing() {
                             <h2 className="modal-title-main">{modalData.title}</h2>
                             <p className="modal-desc-text">{modalData.desc}</p>
 
-                            {modalData.points && (
-                                <div className="modal-points-list">
-                                    {modalData.points.map((pt, idx) => (
-                                        <div key={idx} className="modal-point-item">
-                                            <div className="modal-check-icon">✓</div>
-                                            <span>{pt}</span>
-                                        </div>
+                            {modalData.type === 'form' ? (
+                                <div className="modal-form">
+                                    {modalData.formFields.map((field, idx) => (
+                                        field.type === 'textarea' ? (
+                                            <textarea key={idx} placeholder={field.placeholder} className="modal-input-area" rows="4" />
+                                        ) : (
+                                            <input key={idx} type={field.type} placeholder={field.placeholder} className="modal-input-area" />
+                                        )
                                     ))}
+                                    <button className="btn-modal-primary" onClick={() => {
+                                        toast.success('Your report has been submitted successfully!');
+                                        closeModal();
+                                    }}>
+                                        Submit Report
+                                    </button>
                                 </div>
+                            ) : modalData.type === 'contact' ? (
+                                <div className="modal-contact-box">
+                                    <div className="contact-card">
+                                        <Mail size={20} />
+                                        <span>{modalData.email}</span>
+                                    </div>
+                                    <a href={`mailto:${modalData.email}`} className="btn-modal-primary" style={{ textDecoration: 'none', display: 'block', textAlign: 'center' }}>
+                                        Send Mail Now
+                                    </a>
+                                </div>
+                            ) : (
+                                <>
+                                    {modalData.points && (
+                                        <div className="modal-points-list">
+                                            {modalData.points.map((pt, idx) => (
+                                                <div key={idx} className="modal-point-item">
+                                                    <div className="modal-check-icon">✓</div>
+                                                    <span>{pt}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <div className="modal-footer-action">
+                                        <button className="btn-modal-primary" onClick={closeModal}>
+                                            Got it, Awesome!
+                                        </button>
+                                    </div>
+                                </>
                             )}
-                        </div>
-
-                        <div className="modal-footer-action">
-                            <button className="btn-modal-primary" onClick={closeModal}>
-                                Got it, Awesome!
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -436,7 +514,7 @@ export default function Landing() {
                         <ul>
                             {CAMPUS_LINKS.map(c => (
                                 <li key={c.title}>
-                                    <button onClick={() => setModalData({ title: c.title, desc: c.desc })} className="footer-pop-btn">
+                                    <button onClick={() => setModalData({ title: c.title, desc: c.desc, points: c.points, icon: c.icon })} className="footer-pop-btn">
                                         {c.title}
                                     </button>
                                 </li>
@@ -448,7 +526,7 @@ export default function Landing() {
                         <ul>
                             {SUPPORT_LINKS.map(s => (
                                 <li key={s.title}>
-                                    <button onClick={() => setModalData({ title: s.title, desc: s.desc })} className="footer-pop-btn">
+                                    <button onClick={() => setModalData({ ...s, icon: s.icon })} className="footer-pop-btn">
                                         {s.title}
                                     </button>
                                 </li>
