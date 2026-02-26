@@ -31,6 +31,9 @@ export default function Register() {
 
     return (
         <div className="auth-page">
+            <Link to="/" className="auth-back-home">
+                <span>←</span> Back to Home
+            </Link>
             <div className="auth-card" style={{ maxWidth: '480px' }}>
                 <div className="auth-header">
                     <div className="auth-logo">🎓</div>

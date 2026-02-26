@@ -23,6 +23,9 @@ export default function Login() {
 
     return (
         <div className="auth-page">
+            <Link to="/" className="auth-back-home">
+                <span>←</span> Back to Home
+            </Link>
             <div className="auth-card">
                 <div className="auth-header">
                     <div className="auth-logo">🎓</div>
