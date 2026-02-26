@@ -16,8 +16,12 @@ export default function Login() {
         // Simulate API call
         setTimeout(() => {
             setLoading(false)
-            toast.success('Login Successful! Welcome back.')
-            setTimeout(() => navigate('/dashboard'), 1000)
+            if (email === 'student@smartcampus.edu' && password === 'student123') {
+                toast.success('Login Successful! Welcome back.')
+                setTimeout(() => navigate('/dashboard'), 1000)
+            } else {
+                toast.error('Invalid Credentials: Try student@smartcampus.edu / student123')
+            }
         }, 1500)
     }
 
@@ -71,10 +75,16 @@ export default function Login() {
                         <a href="#" className="auth-forgot">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" className="auth-submit" disabled={loading}>
+                    <button
+                        type="submit"
+                        className="auth-submit"
+                        disabled={loading || !email || !password}
+                    >
                         {loading ? 'Logging in...' : 'Sign In'}
                     </button>
                 </form>
+
+
 
                 <div className="auth-divider">Or continue with</div>
 

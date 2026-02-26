@@ -159,6 +159,7 @@ const SUPPORT_LINKS = [
 
 export default function Landing() {
     const [modalData, setModalData] = useState(null);
+    const [formData, setFormData] = useState({});
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [showChatbot, setShowChatbot] = useState(false);
 
@@ -174,7 +175,10 @@ export default function Landing() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const closeModal = () => setModalData(null);
+    const closeModal = () => {
+        setModalData(null);
+        setFormData({});
+    };
 
     return (
         <div className="landing">
@@ -199,15 +203,33 @@ export default function Landing() {
                                 <div className="modal-form">
                                     {modalData.formFields.map((field, idx) => (
                                         field.type === 'textarea' ? (
-                                            <textarea key={idx} placeholder={field.placeholder} className="modal-input-area" rows="4" />
+                                            <textarea
+                                                key={idx}
+                                                placeholder={field.placeholder}
+                                                className="modal-input-area"
+                                                rows="4"
+                                                value={formData[field.name] || ''}
+                                                onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                                            />
                                         ) : (
-                                            <input key={idx} type={field.type} placeholder={field.placeholder} className="modal-input-area" />
+                                            <input
+                                                key={idx}
+                                                type={field.type}
+                                                placeholder={field.placeholder}
+                                                className="modal-input-area"
+                                                value={formData[field.name] || ''}
+                                                onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                                            />
                                         )
                                     ))}
-                                    <button className="btn-modal-primary" onClick={() => {
-                                        toast.success('Your report has been submitted successfully!');
-                                        closeModal();
-                                    }}>
+                                    <button
+                                        className="btn-modal-primary"
+                                        disabled={!formData.subject || !formData.description}
+                                        onClick={() => {
+                                            toast.success('Your report has been submitted successfully!');
+                                            closeModal();
+                                        }}
+                                    >
                                         Submit Report
                                     </button>
                                 </div>
@@ -317,10 +339,7 @@ export default function Landing() {
                     </div>
                 </div>
 
-                <div className="hero-scroll-indicator">
-                    <span>Scroll to explore</span>
-                    <div className="scroll-arrow">↓</div>
-                </div>
+
             </section>
 
             {/* Mission Section */}
@@ -550,13 +569,15 @@ export default function Landing() {
                     <ArrowUp size={24} />
                 </button>
 
-                <div className="chatbot-launcher" onClick={() => setShowChatbot(true)}>
-                    <div className="chatbot-ai-ring" />
-                    <div className="chatbot-ai-icon">
-                        <Bot size={28} />
+                {!showChatbot && (
+                    <div className="chatbot-launcher" onClick={() => setShowChatbot(true)}>
+                        <div className="chatbot-ai-ring" />
+                        <div className="chatbot-ai-icon">
+                            <Bot size={28} />
+                        </div>
+                        <span className="chatbot-badge">Hi!</span>
                     </div>
-                    <span className="chatbot-badge">Hi!</span>
-                </div>
+                )}
             </div>
 
             {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}

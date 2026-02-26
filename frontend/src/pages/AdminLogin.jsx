@@ -17,11 +17,11 @@ export default function AdminLogin() {
         // Simulate Admin API call
         setTimeout(() => {
             setLoading(false)
-            if (email.includes('admin')) {
+            if (email === 'admin@smartcampus.edu' && password === 'admin123') {
                 toast.success('Admin Authentication Successful!')
                 setTimeout(() => navigate('/dashboard'), 1000)
             } else {
-                toast.error('Unauthorized: Admin access only.')
+                toast.error('Invalid Credentials: Login with admin@smartcampus.edu / admin123')
             }
         }, 1500)
     }
@@ -72,10 +72,16 @@ export default function AdminLogin() {
                         </div>
                     </div>
 
-                    <button type="submit" className="auth-submit admin-submit" disabled={loading}>
+                    <button
+                        type="submit"
+                        className="auth-submit admin-submit"
+                        disabled={loading || !email || !password}
+                    >
                         {loading ? 'Authenticating...' : 'Enter Console'}
                     </button>
                 </form>
+
+
 
                 <div className="auth-footer">
                     <p style={{ fontSize: '12px', color: 'var(--gray-500)', marginTop: '20px' }}>
